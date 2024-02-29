@@ -57,7 +57,7 @@ function Hero() {
 
   return (
     <section className="relative">
-      <Slider {...settings} className="">
+      <Slider {...settings}>
         <div className="h-[400px]">
           <Link to="/" className="focus:outline-none">
             <img src="/xbox-series.png" className="w-full" alt="xbox-series" />

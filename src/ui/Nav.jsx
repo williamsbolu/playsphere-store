@@ -3,9 +3,9 @@ import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
 function Nav() {
   const navlink =
-    'hover:text-secondary transition-all duration-100 whitespace-nowrap';
+    'hover:text-secondary transition-all duration-100 whitespace-nowrap text-[#313133]';
   const navlinkIcon =
-    'hover:text-secondary flex items-center transition-all duration-100 py-4 whitespace-nowrap';
+    'hover:text-secondary flex items-center transition-all duration-100 py-4 whitespace-nowrap text-[#313133]';
   const dropdown =
     'absolute top-[52px] hidden w-[290px] rounded-lg border-2 bg-white px-5 py-5 shadow-lg group-hover:block z-10';
   const accessoriesLinkStyles =
@@ -16,8 +16,8 @@ function Nav() {
     'hover:text-secondary block border-b py-2 transition-all duration-100';
 
   return (
-    <nav className=" border-b border-[#e7e2de]">
-      <ul className="container mx-auto flex h-14 items-center gap-9 bg-white px-10 text-[15px] font-normal text-black">
+    <nav className=" border-b border-[#e7e2de] bg-white">
+      <ul className="container mx-auto flex h-14 items-center gap-9 px-10 text-[15px] font-normal text-black">
         <li>
           <Link className={navlink}>Home</Link>
         </li>
@@ -33,7 +33,7 @@ function Nav() {
         <li className="group relative">
           <Link to="" className={navlinkIcon}>
             Playstation 4
-            <MdOutlineKeyboardArrowDown className="group-hover:text-secondary ml-1 h-6 w-6 text-black" />
+            <MdOutlineKeyboardArrowDown className="ml-1 h-6 w-6 text-black group-hover:text-secondary" />
           </Link>
 
           <div className={dropdown}>
@@ -83,7 +83,7 @@ function Nav() {
                   <li>
                     <Link
                       to=""
-                      className="hover:text-secondary block py-2 transition-all duration-100"
+                      className="block py-2 transition-all duration-100 hover:text-secondary"
                     >
                       Horror
                     </Link>
@@ -97,7 +97,7 @@ function Nav() {
         <li className="group relative">
           <Link to="" className={navlinkIcon}>
             Playstation 5
-            <MdOutlineKeyboardArrowDown className="group-hover:text-secondary ml-1 h-6 w-6 text-black" />
+            <MdOutlineKeyboardArrowDown className="ml-1 h-6 w-6 text-black group-hover:text-secondary" />
           </Link>
 
           <div className={dropdown}>
@@ -147,7 +147,7 @@ function Nav() {
                   <li>
                     <Link
                       to=""
-                      className="hover:text-secondary block py-2 transition-all duration-100"
+                      className="block py-2 transition-all duration-100 hover:text-secondary"
                     >
                       Horror
                     </Link>
@@ -161,7 +161,7 @@ function Nav() {
         <li className="group relative">
           <Link to="" className={navlinkIcon}>
             Xbox One
-            <MdOutlineKeyboardArrowDown className="group-hover:text-secondary ml-1 h-6 w-6 text-black" />
+            <MdOutlineKeyboardArrowDown className="ml-1 h-6 w-6 text-black group-hover:text-secondary" />
           </Link>
 
           <div className={dropdown}>
@@ -211,7 +211,7 @@ function Nav() {
                   <li>
                     <Link
                       to=""
-                      className="hover:text-secondary block py-2 transition-all duration-100"
+                      className="block py-2 transition-all duration-100 hover:text-secondary"
                     >
                       Horror
                     </Link>
@@ -225,7 +225,7 @@ function Nav() {
         <li className="group relative">
           <Link to="" className={navlinkIcon}>
             Xbox Series
-            <MdOutlineKeyboardArrowDown className="group-hover:text-secondary ml-1 h-6 w-6 text-black" />
+            <MdOutlineKeyboardArrowDown className="ml-1 h-6 w-6 text-black group-hover:text-secondary" />
           </Link>
 
           <div className={dropdown}>
@@ -275,7 +275,7 @@ function Nav() {
                   <li>
                     <Link
                       to=""
-                      className="hover:text-secondary block py-2 transition-all duration-100"
+                      className="block py-2 transition-all duration-100 hover:text-secondary"
                     >
                       Horror
                     </Link>
@@ -289,7 +289,7 @@ function Nav() {
         <li className="group relative">
           <Link to="" className={navlinkIcon}>
             Nintendo Switch
-            <MdOutlineKeyboardArrowDown className="group-hover:text-secondary ml-1 h-6 w-6 text-black" />
+            <MdOutlineKeyboardArrowDown className="ml-1 h-6 w-6 text-black group-hover:text-secondary" />
           </Link>
 
           <div className={dropdown}>
@@ -339,7 +339,7 @@ function Nav() {
                   <li>
                     <Link
                       to=""
-                      className="hover:text-secondary block py-2 transition-all duration-100"
+                      className="block py-2 transition-all duration-100 hover:text-secondary"
                     >
                       Horror
                     </Link>

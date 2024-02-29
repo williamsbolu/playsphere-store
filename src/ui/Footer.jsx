@@ -63,14 +63,13 @@ function Footer() {
 
           <div className="text-sm leading-7">
             <p>
-              Jamara is the people's retailer outlet. Our online store is truly
-              a place for discovering the best home appliances and household
-              accessories available now at an unbeatable prices in Nigeria. Our
-              customers can count on us to expect the unexpected; we are fun,
-              quirky, know how to add personality to everyday items, and add
-              spice to your home. Browse through our TVs, air conditioners,
-              refrigerators, gas cookers, freezers, washing machines and fans'
-              offers. There is something for everyone.
+              PlaySphere is your ultimate destination for all things gaming. As
+              a specialized online game store, PlaySphere offers a vast array of
+              video games, consoles, accessories, and related items. Whether
+              you're a seasoned gamer or just starting your journey, PlaySphere
+              provides a one-stop shop for all your gaming needs. With a wide
+              selection and convenient online shopping experience, PlaySphere is
+              the go-to destination for gamers everywhere.
             </p>
           </div>
         </div>
@@ -93,10 +92,10 @@ function Footer() {
                 type="email"
                 required
                 placeholder="Your email"
-                className="focus:ring-primary w-full rounded-3xl border border-[#dcd5cf] px-5 py-2 text-black placeholder:text-sm focus:outline-none focus:ring-2"
+                className="w-full rounded-3xl border border-[#dcd5cf] px-5 py-2 text-black placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
 
-              <button className="bg-primary rounded-3xl px-8 py-2 text-[15px] font-medium text-white">
+              <button className="rounded-3xl bg-primary px-8 py-2 text-sm font-medium text-white">
                 Subscribe
               </button>
             </form>

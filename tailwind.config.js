@@ -5,6 +5,7 @@ export default {
   theme: {
     fontFamily: {
       sans: 'Roboto, sans-serif',
+      heading: 'Montserrat, sans-serif',
     },
 
     extend: {
