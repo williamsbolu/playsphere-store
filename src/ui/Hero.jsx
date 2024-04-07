@@ -45,7 +45,7 @@ function Hero() {
     slidesToScroll: 1,
     arrows: true,
     autoplay: true,
-    autoplaySpeed: 6000,
+    autoplaySpeed: 9000,
     pauseOnHover: false,
     pauseOnFocus: true,
     prevArrow: <CustomPrevArrow />,
@@ -58,37 +58,47 @@ function Hero() {
   return (
     <section className="relative">
       <Slider {...settings}>
-        <div className="h-[400px]">
+        <div className="">
           <Link to="/" className="focus:outline-none">
-            <img src="/xbox-series.png" className="w-full" alt="xbox-series" />
+            <img src="/xbox-series.jpg" className="w-full" alt="xbox-series" />
           </Link>
         </div>
-        <div className="h-[400px]">
+        <div className="">
           <Link to="/" className="focus:outline-none">
-            <img src="/Fc-24.png" className="w-full" alt="fc-24" />
+            <img src="/Fa-24.jpg" className="w-full" alt="fc-24" />
           </Link>
         </div>
-        <div className="h-[400px]">
+        <div className="">
+          <Link to="/" className="focus:outline-none">
+            <img src="/ps5-slim.jpg" className="w-full" alt="fc-24" />
+          </Link>
+        </div>
+        <div className="">
           <Link to="/" className="focus:outline-none">
             <img
-              src="/ps5-slim-banner.png"
+              src="/playstationVr.jpg"
               className="w-full"
               alt="playstation"
             />
           </Link>
         </div>
-        <div className="h-[400px]">
+        <div className="">
           <Link to="/" className="focus:outline-none">
-            <img src="/switch-2.png" className="w-full" alt="nintendo" />
+            <img src="/switch-2.jpg" className="w-full" alt="nintendo" />
           </Link>
         </div>
-        <div className="h-[400px]">
+        <div className="">
           <Link to="/" className="focus:outline-none">
             <img
-              src="/SLIDE-GIFT-CARD-2.png"
+              src="/SLIDE-GIFT-CARD-2.jpg"
               className="w-full"
               alt="gift cards"
             />
+          </Link>
+        </div>
+        <div className="">
+          <Link to="/" className="focus:outline-none">
+            <img src="/videogames.jpg" className="w-full" alt="Video games" />
           </Link>
         </div>
       </Slider>

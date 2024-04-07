@@ -5,18 +5,21 @@ import { RiTwitterFill } from 'react-icons/ri';
 import { IoLogoInstagram } from 'react-icons/io5';
 import { FaYoutube } from 'react-icons/fa6';
 import { FaLinkedinIn } from 'react-icons/fa';
+import Button from './Button';
 
 function Footer() {
   const FooterLinkStyles =
-    'hover:text-secondary transition-all duration-200 block';
+    'hover:text-primary transition-all duration-200 block';
   const FooterListStyles = 'transition-all duration-200 hover:scale-105';
 
   return (
-    <footer className="text-black">
-      <section className="container mx-auto grid grid-cols-[1fr_1.5fr_1.3fr_1fr] gap-16 border-t border-stone-300/60 px-10 py-12">
+    <footer className="text-[#1F1F1F]">
+      <section className="app-container grid grid-cols-[1fr_1.5fr_1.3fr_1fr] gap-14 border-t border-stone-300/60 py-12">
         <div className="space-y-4">
           <div className="">
-            <h2 className="text-[14px] font-medium uppercase">Main Menu</h2>
+            <h2 className="font-heading text-[14px] font-semibold uppercase">
+              Main Menu
+            </h2>
             <button className="hidden">
               <TbPlus className="txext-black h-7 w-7" />
             </button>
@@ -53,7 +56,7 @@ function Footer() {
 
         <div className="space-y-4">
           <div className="">
-            <h2 className="text-[14px] font-medium uppercase">
+            <h2 className="font-heading text-[14px] font-semibold uppercase">
               About Playsphere
             </h2>
             <button className="hidden">
@@ -76,7 +79,9 @@ function Footer() {
 
         <div className="space-y-4">
           <div className="">
-            <h2 className="text-[14px] font-medium uppercase">Newsletter</h2>
+            <h2 className="font-heading text-[14px] font-semibold uppercase">
+              Newsletter
+            </h2>
             <button className="hidden">
               <TbPlus className="txext-black h-7 w-7" />
             </button>
@@ -95,16 +100,16 @@ function Footer() {
                 className="w-full rounded-3xl border border-[#dcd5cf] px-5 py-2 text-black placeholder:text-sm focus:outline-none focus:ring-2 focus:ring-primary"
               />
 
-              <button className="rounded-3xl bg-primary px-8 py-2 text-sm font-medium text-white">
-                Subscribe
-              </button>
+              <Button>Subscribe</Button>
             </form>
           </div>
         </div>
 
         <div className="space-y-4">
           <div className="">
-            <h2 className="text-[14px] font-medium uppercase">Informations</h2>
+            <h2 className="font-heading text-[14px] font-semibold uppercase">
+              Informations
+            </h2>
             <button className="hidden">
               <TbPlus className="txext-black h-7 w-7" />
             </button>
@@ -128,8 +133,8 @@ function Footer() {
         </div>
       </section>
 
-      <section className="container mx-auto flex items-center justify-between px-10 pb-10 pt-2">
-        <p className="text-[13px] font-normal uppercase">
+      <section className="app-container flex items-center justify-between pb-10 pt-2">
+        <p className="text-[13px] font-normal uppercase text-black">
           &copy; Playsphere Game Store
         </p>
 

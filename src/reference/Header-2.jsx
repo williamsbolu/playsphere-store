@@ -43,7 +43,7 @@ function Header() {
           </button>
 
           {/* <button className="relative">
-            <IoCartOutline className="text-secondary h-8 w-8" />
+            <IoCartOutline className="text-primary h-8 w-8" />
             <span className="absolute -right-3 -top-1 flex text-xs text-white">
               10
             </span>

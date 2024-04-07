@@ -10,8 +10,23 @@ export default {
 
     extend: {
       colors: {
-        primary: '#332885',
-        secondary: '#08C076',
+        primary: '#08C076',
+        // primary: '#332885',
+      },
+      keyframes: {
+        fadeInBottom: {
+          '0%': {
+            opacity: 0,
+            transform: 'translateY(50px)',
+          },
+          '100%': {
+            opacity: 1,
+            transform: 'translateY(0)',
+          },
+        },
+      },
+      animation: {
+        fadeInBottom: 'fadeInBottom 1s ease-in-out',
       },
     },
   },

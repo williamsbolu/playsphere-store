@@ -2,8 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-/* @layer components {
-} */
+@layer components {
+  .app-container {
+    @apply mx-auto max-w-6xl;
+  }
+
+  .loader-full {
+    width: 41px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 3px solid #00000014;
+    border-right-color: #08c076;
+    animation: s2 0.6s infinite linear;
+  }
+
+  @keyframes s2 {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+}
+
+.cart-item:last-child {
+  border-bottom: 0;
+}
+
+.product-item-complete:last-child {
+  border-color: #e7e2de;
+}
+
+.cart::-webkit-scrollbar {
+  width: 7px;
+}
+
+.cart::-webkit-scrollbar-track {
+  /* scroll background */
+  background: #f1f1f1;
+}
+
+.cart::-webkit-scrollbar-thumb {
+  /* scroll line */
+  background: #c6c6c6;
+}
 
 /* .carousel-root .thumbs-wrapper img {
   width: 50px;
@@ -14,4 +54,8 @@
 .carousel .carousel-status {
   color: #313133;
   font-size: 12px;
+}
+
+.slick-prev::before .slick-next::after {
+  padding: 40px !important;
 }

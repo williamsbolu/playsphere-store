@@ -1,0 +1,36 @@
+.spinner {
+  /* Spinner size and color */
+  width: 1.27rem;
+  height: 1.27rem;
+
+  /* Additional spinner styles */
+  animation: spinner 440ms linear infinite;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+  border-style: solid;
+  border-radius: 50%;
+  box-sizing: border-box;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.btn-white {
+  border-top-color: #fff;
+  border-left-color: #fff;
+  border-width: 2px;
+}
+.btn-dark {
+  border-top-color: #1a1a1a;
+  border-left-color: #1a1a1a;
+  border-width: 1px;
+}
+
+/* Animation styles */
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
