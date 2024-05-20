@@ -18,7 +18,7 @@ function ProductList({
   return (
     <section className="app-container space-y-5">
       <div className="flex items-center justify-between">
-        <h2 className="font-heading text-[22px] font-semibold text-[#1F1F1F]">
+        <h2 className="font-heading text-[22px] font-semibold text-body">
           {heading}
         </h2>
 
@@ -31,7 +31,7 @@ function ProductList({
         </Link>
       </div>
 
-      <div className="grid auto-rows-[150px] grid-cols-3">
+      <div className="grid auto-rows-[150px] grid-cols-3 border border-solid border-[##e1e3e4] bg-white">
         {productData.map((product) => (
           <Product key={product.id} product={product} />
         ))}

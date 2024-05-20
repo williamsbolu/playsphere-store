@@ -4,14 +4,19 @@ function Button({
   children,
   onClick,
   disabled,
-  style = 'primary',
+  variation = 'primary',
   type,
   to,
   additionalClass,
+  isCheckout,
 }) {
   const btnStyles = {
-    primary: 'bg-primary hover:bg-[#101010]',
-    secondary: 'bg-[#101010] hover:bg-primary',
+    primary: 'bg-primary hover:bg-[#101010] text-white',
+    secondary: 'bg-[#101010] hover:bg-primary text-white',
+    transparent:
+      'border border-solid border-[#e1e3e4] bg-transparent text-primary hover:bg-[#e1e3e47f]',
+    soldout: 'bg-[#8a9297] text-white',
+    delete: 'bg-[#101010] text-white',
   };
 
   if (type === 'link') {
@@ -19,7 +24,7 @@ function Button({
       <Link
         to={to}
         onClick={onClick}
-        className={`inline-block rounded-3xl px-8 py-[10px] text-center text-sm font-medium text-white transition-all duration-200 disabled:cursor-not-allowed ${btnStyles[style]} ${additionalClass && additionalClass}`}
+        className={`inline-block rounded-[3px] px-8 py-[10px] text-center text-sm font-semibold transition-all duration-200 disabled:cursor-not-allowed ${btnStyles[variation]} ${additionalClass && additionalClass}`}
       >
         {children}
       </Link>
@@ -28,7 +33,7 @@ function Button({
 
   return (
     <button
-      className={`h-10 rounded-3xl px-8 py-2 text-sm font-medium text-white transition-all duration-200 disabled:cursor-not-allowed ${btnStyles[style]}`}
+      className={`rounded-[3px] px-8 py-[10px] text-sm font-semibold transition-all duration-300 disabled:cursor-not-allowed ${btnStyles[variation]} ${additionalClass && additionalClass} disabled:cursor-not-allowed ${isCheckout && 'shadow-sm disabled:bg-stone-400/40'}`}
       onClick={onClick}
       disabled={disabled}
     >

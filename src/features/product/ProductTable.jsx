@@ -11,7 +11,7 @@ function ProductTable({ params, pageContentHeader }) {
 
   return (
     <ProductListComplete
-      productData={products}
+      productData={products.data}
       count={count}
       pageContentHeader={pageContentHeader}
     />

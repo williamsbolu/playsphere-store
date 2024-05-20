@@ -6,7 +6,7 @@ export function useDeleteCart() {
   const { mutate: deleteCart, isLoading: isDeleting } = useMutation({
     mutationFn: deleteCartApi,
     onError: (err) => {
-      console.log(err);
+      toast.remove();
       if (
         err?.response?.status === 401 &&
         err?.response?.data?.message.startsWith('Your token has expired!')

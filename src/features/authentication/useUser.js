@@ -6,6 +6,7 @@ export function useUser() {
     queryKey: ['user'],
     queryFn: isLoggedIn,
     staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: true,
   });
 
   return {

@@ -75,18 +75,18 @@ function CartModalItem({ item, onCloseModal }) {
           />
           {isLoading && (
             <span className="absolute left-1/2 top-1/2 inline-block -translate-x-2/4 -translate-y-1/2">
-              <SpinnerButton />
+              <SpinnerButton type="dark" />
             </span>
           )}
         </div>
 
         <div className="">
-          <h3 className="mb-[6px] w-[85%] text-sm font-medium group-hover:text-[#555]">
+          <h3 className="text-body mb-[6px] w-[90%] text-[13px] font-bold uppercase transition-all duration-300 hover:text-primary">
             {name}
           </h3>
           <div className="text-[0.813rem]">
-            <span className="text-[#999]">{quantity} x</span>{' '}
-            <span className="font-normal text-primary">
+            <span className="text-body">{quantity} x</span>{' '}
+            <span className="font-semibold text-primary">
               {formatCurrency(price, 2)}
             </span>
           </div>

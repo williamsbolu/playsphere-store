@@ -1,10 +1,8 @@
 import styles from './SpinnerButton.module.css';
 
-function SpinnerButton({ type }) {
+function SpinnerButton({ type = 'light', size = 'small' }) {
   return (
-    <div
-      className={`${styles.spinner} ${type === 'white' ? styles['btn-white'] : styles['btn-dark']}`}
-    ></div>
+    <div className={`${styles.spinner} ${styles[type]} ${styles[size]}`}></div>
   );
 }
 

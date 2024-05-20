@@ -11,7 +11,7 @@ function SortBy({ options }) {
 
   return (
     <select
-      className="rounded-3xl border border-[#e7e2de] px-3 py-2 text-sm shadow-sm focus:shadow-md focus:outline-none"
+      className="rounded-[3px] border border-[#e7e2de] px-3 py-2 text-sm shadow-sm focus:shadow-md focus:outline-none"
       onChange={handleChange}
       value={sortBy}
     >

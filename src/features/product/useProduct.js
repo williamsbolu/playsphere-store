@@ -9,6 +9,7 @@ export function useProduct() {
     isLoading,
     data: product,
     error,
+    refetch,
   } = useQuery({
     queryKey: ['product', slug],
     queryFn: () => getProduct(slug),
@@ -16,5 +17,5 @@ export function useProduct() {
     cacheTime: 0,
   });
 
-  return { isLoading, product, error };
+  return { isLoading, product, error, refetch };
 }

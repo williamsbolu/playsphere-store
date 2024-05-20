@@ -25,7 +25,7 @@ function ProductOperations({ count, pageContentHeader }) {
           <MdKeyboardArrowRight className="h-4 w-4" />
         </li>
         <li>
-          <span className="text-sm font-medium">{pageContentHeader}</span>
+          <span className="text-sm font-semibold">{pageContentHeader}</span>
         </li>
       </ul>
 

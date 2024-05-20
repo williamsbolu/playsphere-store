@@ -35,3 +35,18 @@ export function getProductCategoriesText(
 
   return categoryText;
 }
+
+export function saveDataToLocalStorage(key, data, dataKey) {
+  // const oneMonthInMilliseconds = 30 * 24 * 60 * 60 * 1000; // 30 days
+  const fiveMinutesInMilliseconds = 1 * 60 * 1000; // 5 minutes
+
+  const now = new Date().getTime();
+  const expirationTime = now + fiveMinutesInMilliseconds;
+  const storageData = {
+    [dataKey]: data,
+    expiration: expirationTime,
+  };
+  localStorage.setItem(key, JSON.stringify(storageData));
+}
+
+function caculateProductsDeliveryCost(productList) {}

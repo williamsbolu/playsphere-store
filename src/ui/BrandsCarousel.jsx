@@ -35,11 +35,13 @@ function BrandsCarousel() {
 
   const settings = {
     dots: false,
-    infinite: false,
-    arrows: true,
+    infinite: true,
+    arrows: false,
     speed: 500,
     slidesToShow: 5,
-    slidesToScroll: 5,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
     initialSlide: 0,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
@@ -73,7 +75,7 @@ function BrandsCarousel() {
 
   return (
     <div className="app-container space-y-7">
-      <h2 className="font-heading text-[22px] font-semibold text-[#1F1F1F]">
+      <h2 className="text-body font-heading text-[22px] font-semibold">
         Our Brands
       </h2>
 

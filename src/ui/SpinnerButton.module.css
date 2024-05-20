@@ -1,8 +1,4 @@
 .spinner {
-  /* Spinner size and color */
-  width: 1.27rem;
-  height: 1.27rem;
-
   /* Additional spinner styles */
   animation: spinner 440ms linear infinite;
   border-bottom-color: transparent;
@@ -13,16 +9,33 @@
   display: inline-block;
   vertical-align: middle;
 }
+.extra-small {
+  width: 1.03rem;
+  height: 1.03rem;
+}
+.small {
+  width: 1.27rem;
+  height: 1.27rem;
+}
+.medium {
+  width: 1.7rem;
+  height: 1.7rem;
+}
 
-.btn-white {
+.light {
   border-top-color: #fff;
   border-left-color: #fff;
   border-width: 2px;
 }
-.btn-dark {
+.dark {
   border-top-color: #1a1a1a;
   border-left-color: #1a1a1a;
   border-width: 1px;
+}
+.primary {
+  border-top-color: #08c076;
+  border-left-color: #08c076;
+  border-width: 1.4px;
 }
 
 /* Animation styles */

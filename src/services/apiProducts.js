@@ -23,6 +23,32 @@ export async function getProduct(slug) {
   return res.data.data;
 }
 
+export async function getSearchedProducts(
+  query,
+  page,
+  sortBy = { field: 'name', direction: 'desc' },
+) {
+  // sort
+  const sortString = `&sort=${sortBy.direction === 'desc' ? `-${sortBy.field}` : sortBy.field}`;
+
+  // pagination
+  const pageString = page
+    ? `&page=${page}&limit=${PAGE_SIZE}`
+    : `&page=1&limit=${PAGE_SIZE}`;
+
+  const res = await axios.get(
+    `${PLAYSPHERE_API_ROUTE}/api/v1/products/search?q=${query}${pageString}${sortString}`,
+  );
+
+  return res.data;
+}
+
+export async function getProductById(id) {
+  const res = await axios.get(`${PLAYSPHERE_API_ROUTE}/api/v1/products/${id}`);
+
+  return res.data.data;
+}
+
 export async function getHotDeals() {
   const res = await axios.get(
     `${PLAYSPHERE_API_ROUTE}/api/v1/products/hot-deals`,

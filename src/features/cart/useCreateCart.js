@@ -6,6 +6,7 @@ export function useCreateCart() {
   const { mutate: createCart, isLoading: isCreating } = useMutation({
     mutationFn: createCartApi,
     onError: (err) => {
+      toast.remove();
       if (
         err?.response?.status === 401 &&
         err?.response?.data?.message.startsWith('Your token has expired!')

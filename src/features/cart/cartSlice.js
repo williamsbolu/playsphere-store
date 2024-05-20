@@ -30,6 +30,8 @@ const cartSlice = createSlice({
             _id: newProduct.productId,
             coverImageUrl: newProduct.coverImageUrl,
             name: newProduct.name,
+            originalPrice: newProduct.originalPrice || null,
+            quantity: newProduct.productQuantity,
             slug: newProduct.slug,
           },
           price: newProduct.price,
@@ -46,7 +48,9 @@ const cartSlice = createSlice({
     },
     removeItemQuantity(state, action) {
       const productId = action.payload;
-      const item = state.items.find((item) => item.product._id === productId);
+      const item = state.products.find(
+        (item) => item.product._id === productId,
+      );
 
       if (item.quantity === 1) {
         cartSlice.caseReducers.removeItem(state, action);
@@ -69,19 +73,10 @@ const cartSlice = createSlice({
         (item) => item.product._id !== productId,
       );
     },
-    updateChange(state, action) {
-      const change = JSON.stringify(state.products);
-      state.changed = change;
-    },
   },
 });
 
-export const {
-  replaceCart,
-  addItem,
-  removeItem,
-  removeItemQuantity,
-  updateChange,
-} = cartSlice.actions;
+export const { replaceCart, addItem, removeItem, removeItemQuantity } =
+  cartSlice.actions;
 
 export default cartSlice.reducer;

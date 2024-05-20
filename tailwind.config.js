@@ -4,14 +4,15 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     fontFamily: {
-      sans: 'Roboto, sans-serif',
+      sans: 'Nunito Sans, sans-serif',
       heading: 'Montserrat, sans-serif',
     },
 
     extend: {
       colors: {
         primary: '#08C076',
-        // primary: '#332885',
+        body: '#677279',
+        secondary: '#332885',
       },
       keyframes: {
         fadeInBottom: {

@@ -60,8 +60,8 @@ function AuthFormModal({ onCloseModal }) {
             <input
               type="email"
               id="email"
-              autoComplete="username"
-              className={`grow rounded-3xl border border-solid focus:outline-none ${errors?.email?.message ? 'border-[#F05D5D]' : 'border-[#a3a3a6]'} px-5 py-[10px] font-sans text-sm shadow-sm`}
+              autoComplete="email"
+              className={`grow rounded-[3px] border border-solid focus:outline-none ${errors?.email?.message ? 'border-[#F05D5D]' : 'border-[#D4D6E1]'} px-5 py-[10px] font-sans text-sm shadow-sm`}
               {...register('email', {
                 required: 'This field is required',
               })}
@@ -69,8 +69,9 @@ function AuthFormModal({ onCloseModal }) {
           </FormRowVertical>
           <div className="flex flex-col gap-1">
             <div className="flex items-center justify-between">
-              <label htmlFor="password" className="text-sm">
+              <label htmlFor="password" className="text-sm text-[#1F1F1F]">
                 Password
+                <span className="font-medium text-[#FD353F]">*</span>
               </label>
               <Link
                 to="/"
@@ -83,7 +84,7 @@ function AuthFormModal({ onCloseModal }) {
               type="password"
               id="password"
               autoComplete="current-password"
-              className={`grow rounded-3xl border border-solid focus:outline-none ${errors?.password?.message ? 'border-[#F05D5D]' : 'border-[#a3a3a6]'} px-5 py-[10px] font-sans text-sm shadow-sm`}
+              className={`grow rounded-[3px] border border-solid focus:outline-none ${errors?.password?.message ? 'border-[#F05D5D]' : 'border-[#D4D6E1]'} px-5 py-[10px] font-sans text-sm shadow-sm`}
               {...register('password', {
                 required: 'This field is required',
                 minLength: {
@@ -99,21 +100,23 @@ function AuthFormModal({ onCloseModal }) {
             )}
           </div>
 
-          <Button disabled={isLoading}>
-            {isLoading ? <SpinnerButton type="white" /> : 'Log in'}
+          <Button variation="secondary" disabled={isLoading}>
+            {isLoading ? <SpinnerButton /> : 'Log in'}
           </Button>
         </form>
       </div>
 
       <div className="border-[rgba(0, 0, 0, 0.105)] border-t border-solid py-5 text-center">
-        <Link to="" className="text-[0.94rem] text-primary hover:underline">
+        <Link
+          to="/auth/sign-up"
+          className="text-[0.94rem] text-primary hover:underline"
+          onClick={onCloseModal}
+        >
           Don’t have an account? Sign Up
         </Link>
       </div>
     </>
   );
 }
-
-// #FD1D29
 
 export default AuthFormModal;

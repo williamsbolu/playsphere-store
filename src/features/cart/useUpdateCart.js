@@ -6,6 +6,7 @@ export function useUpdateCart() {
   const { mutate: updateCart, isLoading: isUpdating } = useMutation({
     mutationFn: ({ cartId, data }) => updateCartApi(cartId, data),
     onError: (err) => {
+      toast.remove();
       if (
         err?.response?.status === 401 &&
         err?.response?.data?.message.startsWith('Your token has expired!')

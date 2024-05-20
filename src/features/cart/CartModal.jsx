@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { HiXMark } from 'react-icons/hi2';
 import CartModalItem from './CartModalItem';
@@ -55,14 +54,19 @@ function CartModal({ onCloseModal }) {
             <p className="font-heading text-[18px] font-semibold text-[#1F1F1F]">
               Subtotal:
             </p>
-            <span className="text-[18px] font-medium text-primary">
+            <span className="text-[18px] font-bold text-primary">
               {formatCurrency(cart.totalAmount, 2)}
             </span>
           </div>
-          <Button type="link" to="" additionalClass="mb-[10px]">
+          <Button
+            type="link"
+            to="/cart"
+            additionalClass="mb-[10px]"
+            onClick={onCloseModal}
+          >
             View cart
           </Button>
-          <Button type="link" to="">
+          <Button type="link" to="/checkout" onClick={onCloseModal}>
             Checkout
           </Button>
         </div>

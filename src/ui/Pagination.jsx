@@ -2,7 +2,7 @@ import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
 import { useSearchParams } from 'react-router-dom';
 import { PAGE_SIZE } from '../utils/constants';
 
-function Pagination({ count }) {
+function Pagination({ count, border = true }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const currentPage = !searchParams.get('page')
     ? 1
@@ -33,7 +33,9 @@ function Pagination({ count }) {
   if (pageCount <= 1) return null;
 
   return (
-    <div className="flex justify-between border border-solid border-[#e7e2de] border-t-[#e7e2de7e] px-7 py-5 text-[#1F1F1F]">
+    <div
+      className={`flex justify-between ${border && 'border'} border-solid border-[#e1e3e4] border-t-[#e1e3e469] bg-white px-7 py-5 text-black`}
+    >
       <button
         className={`group/previous flex items-center font-medium ${prevPageIsDisabled && 'invisible'}`}
         onClick={prevPage}
@@ -46,15 +48,15 @@ function Pagination({ count }) {
 
       <div className="flex gap-2 text-sm font-medium">
         {!prevPageIsDisabled && (
-          <button className="h-6 w-6 rounded-full" onClick={prevPage}>
+          <button className="h-6 w-6 rounded-[3px]" onClick={prevPage}>
             {currentPage - 1}
           </button>
         )}
-        <button className="h-6 w-6 rounded-full bg-primary text-white">
+        <button className="h-6 w-6 rounded-[3px] bg-primary text-white">
           {currentPage}
         </button>
         {!nextPageIsDisabled && (
-          <button className="h-6 w-6 rounded-full" onClick={nextPage}>
+          <button className="h-6 w-6 rounded-[3px]" onClick={nextPage}>
             {currentPage + 1}
           </button>
         )}

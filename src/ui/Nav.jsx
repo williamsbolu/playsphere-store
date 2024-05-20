@@ -3,21 +3,21 @@ import { MdOutlineKeyboardArrowDown } from 'react-icons/md';
 
 function Nav() {
   const navlink =
-    'hover:text-primary transition-all duration-100 whitespace-nowrap text-[#1F1F1F]';
+    'hover:text-primary transition-all duration-100 whitespace-nowrap text-black font-medium text-base';
   const navlinkIcon =
-    'hover:text-primary flex items-center transition-all duration-100 py-4 whitespace-nowrap text-[#1F1F1F]';
+    'hover:text-primary flex items-center transition-all duration-100 py-4 whitespace-nowrap text-black font-medium text-base';
   const dropdown =
-    'absolute top-[52px] hidden w-[290px] rounded-lg border-2 bg-white px-5 py-5 shadow-lg group-hover:block z-20';
+    'absolute top-[52px] hidden w-[290px] rounded-lg border-2 bg-white px-5 py-5 shadow-lg group-hover:block z-10';
   const accessoriesLinkStyles =
     'hover:text-primary block text-gray-500 transition-all duration-100';
   const videoGameLinkStyles =
-    'hover:text-primary block whitespace-nowrap border-b pb-2 transition-all duration-100 text-[#1F1F1F]';
+    'hover:text-primary block whitespace-nowrap border-b pb-2 transition-all duration-100 text-black font-medium';
   const genreLinkStyles =
     'hover:text-primary block border-b py-2 transition-all duration-100';
 
   return (
     <nav className="border-b border-[#e7e2de] bg-white">
-      <ul className="app-container flex h-14 items-center gap-9 text-[15px] font-normal text-[#1f1f1f]">
+      <ul className="app-container text-body flex h-14 items-center gap-9 text-[15px] font-normal">
         <li>
           <Link to="/" className={navlink}>
             Home

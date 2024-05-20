@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { PLAYSPHERE_API_ROUTE } from '../utils/constants';
+import { sleep } from '../utils/helpers';
+import toast from 'react-hot-toast';
 
 export async function signUp({
   firstName,
@@ -42,17 +44,27 @@ export async function isLoggedIn() {
   return res.data;
 }
 
-export async function logout() {
-  const storedToken = localStorage.getItem('auth-token');
+export async function logout(handler) {
+  if (handler === 'displayProgress') {
+    toast.loading('Logging you out...');
+  }
+  await sleep(3000);
+  localStorage.removeItem('auth-token');
 
-  const res = await axios.get(`${PLAYSPHERE_API_ROUTE}/api/v1/users/logout`, {
-    headers: {
-      Authorization: `Bearer ${storedToken}`,
-    },
-  });
-
-  return res.data;
+  return { status: 'success' };
 }
+
+// export async function logout() {
+//   const storedToken = localStorage.getItem('auth-token');
+
+//   const res = await axios.get(`${PLAYSPHERE_API_ROUTE}/api/v1/users/logout`, {
+//     headers: {
+//       Authorization: `Bearer ${storedToken}`,
+//     },
+//   });
+
+//   return res.data;
+// }
 
 export async function updateCurrentUser(reqBody) {
   const storedToken = localStorage.getItem('auth-token');
@@ -76,6 +88,18 @@ export async function changePassword(reqBody) {
     method: 'PATCH',
     url: `${PLAYSPHERE_API_ROUTE}/api/v1/users/updateMyPassword`,
     data: reqBody,
+    headers: {
+      Authorization: `Bearer ${storedToken}`,
+    },
+  });
+
+  return res.data;
+}
+
+export async function createCheckout(data) {
+  const storedToken = localStorage.getItem('auth-token');
+
+  const res = await axios.get(`${PLAYSPHERE_API_ROUTE}/api/v1/order/checkout`, {
     headers: {
       Authorization: `Bearer ${storedToken}`,
     },

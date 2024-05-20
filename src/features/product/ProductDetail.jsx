@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import FancyBox from '../../utils/FancyBox';
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
@@ -13,24 +13,35 @@ import {
   sleep,
 } from '../../utils/helpers';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
-import { addItem, updateChange } from '../cart/cartSlice';
+import { addItem } from '../cart/cartSlice';
 import SpinnerButton from '../../ui/SpinnerButton';
 import Button from '../../ui/Button';
 import AuthContext from '../../auth-context';
 import { useCreateCart } from '../cart/useCreateCart';
 import { useUpdateCart } from '../cart/useUpdateCart';
+import { openCartModal } from '../cart/cartModalSlice';
 
 function ProductDetail({ product }) {
   const authCtx = useContext(AuthContext);
   const [isAdding, setIsAdding] = useState();
-  const [quantity, setQuantity] = useState(1);
+  const [isCheckingOut, setIsCheckingOut] = useState();
+  const [cartQuantity, setcartQuantity] = useState(1);
+  const [errorQuantity, setErrorQuantity] = useState(false);
   const cartItems = useSelector((state) => state.cart.products);
+  const existingItem = cartItems.find(
+    (item) => item.product._id === product.id,
+  );
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { createCart, isCreating } = useCreateCart();
   const { updateCart, isUpdating } = useUpdateCart();
 
-  const isLoading = isAdding || isCreating || isUpdating;
+  const isLoading =
+    isAdding ||
+    (isCreating && !isCheckingOut) ||
+    (isUpdating && !isCheckingOut);
 
   const {
     id,
@@ -46,8 +57,11 @@ function ProductDetail({ product }) {
     genre,
     prevProductSlug,
     nextProductSlug,
+    quantity,
     slug,
   } = product;
+
+  const soldOut = quantity === 0;
 
   const platformsComplete = {
     ps4: 'Playstation 4',
@@ -65,8 +79,33 @@ function ProductDetail({ product }) {
     platformsComplete,
   );
 
-  async function addToCartAuthHandler() {
-    const existingItem = cartItems.find((item) => item.product._id === id);
+  useEffect(() => {
+    if (!errorQuantity) return;
+    const errorTimeout = setTimeout(() => setErrorQuantity(false), 2000);
+
+    return () => {
+      clearTimeout(errorTimeout);
+    };
+  }, [errorQuantity]);
+
+  async function addToCartAuthHandler(type = 'cart') {
+    // if the items exist and the quantity the user is adding is larger than the units available (existingItem.quantity meaning the cart quantity)
+    if (existingItem) {
+      const totalNewCartQuantity = existingItem.quantity + cartQuantity;
+
+      if (totalNewCartQuantity > quantity) {
+        toast.error('You have reached the maximum quantity for this product', {
+          style: {
+            background: '#FCE2E2',
+            color: '#F05D5D',
+            maxWidth: '330px',
+          },
+        });
+        return;
+      }
+    }
+
+    if (type === 'isCheckingOut') setIsCheckingOut(true);
 
     if (existingItem) {
       updateCart(
@@ -83,12 +122,19 @@ function ProductDetail({ product }) {
                 productId: id,
                 name,
                 coverImageUrl,
+                originalPrice: originalPrice || null,
                 price,
-                quantity,
+                quantity: cartQuantity,
+                productQuantity: quantity,
                 slug,
               }),
             );
-            dispatch(updateChange());
+            if (type === 'isCheckingOut') {
+              setIsCheckingOut(false);
+              navigate('/checkout');
+            } else {
+              dispatch(openCartModal());
+            }
           },
         },
       );
@@ -105,12 +151,19 @@ function ProductDetail({ product }) {
                 productId: id,
                 name,
                 coverImageUrl,
+                originalPrice: originalPrice || null,
                 price,
-                quantity,
+                quantity: cartQuantity,
+                productQuantity: quantity,
                 slug,
               }),
             );
-            dispatch(updateChange());
+            if (type === 'isCheckingOut') {
+              setIsCheckingOut(false);
+              navigate('/checkout');
+            } else {
+              dispatch(openCartModal());
+            }
           },
         },
       );
@@ -118,6 +171,22 @@ function ProductDetail({ product }) {
   }
 
   async function addToCartNoAuthHandler() {
+    // if the items exist and the quantity the user is adding is larger than the units available (existingItem.quantity meaning the cart quantity)
+    if (existingItem) {
+      const totalNewCartQuantity = existingItem.quantity + cartQuantity;
+
+      if (totalNewCartQuantity > quantity) {
+        toast.error('You have reached the maximum quantity for this product', {
+          style: {
+            background: '#FCE2E2',
+            color: '#F05D5D',
+            maxWidth: '330px',
+          },
+        });
+        return;
+      }
+    }
+
     if (!navigator.onLine) {
       setIsAdding(true);
       await sleep(2000);
@@ -144,14 +213,16 @@ function ProductDetail({ product }) {
         productId: id,
         name,
         coverImageUrl,
+        originalPrice: originalPrice || null,
         price,
-        quantity,
+        quantity: cartQuantity,
+        productQuantity: quantity,
         slug,
       }),
     );
     setIsAdding(false);
-    setQuantity(1);
-    dispatch(updateChange());
+    dispatch(openCartModal());
+    setcartQuantity(1);
   }
 
   const addToCartHandler = () => {
@@ -162,16 +233,78 @@ function ProductDetail({ product }) {
     }
   };
 
+  const increaseQuantity = () => {
+    if (cartQuantity >= quantity) {
+      setErrorQuantity(true);
+      return;
+    }
+
+    setcartQuantity((prevQty) => prevQty + 1);
+  };
   const decreaseQuantity = () => {
-    if (quantity === 1) return;
-    setQuantity((prevQty) => prevQty - 1);
+    if (cartQuantity === 1) return;
+    setcartQuantity((prevQty) => prevQty - 1);
+  };
+
+  const buyNowHandler = async () => {
+    if (existingItem) {
+      const totalNewCartQuantity = existingItem.quantity + cartQuantity;
+
+      if (totalNewCartQuantity > quantity) {
+        toast.error('You have reached the maximum quantity for this product', {
+          style: {
+            background: '#FCE2E2',
+            color: '#F05D5D',
+            maxWidth: '330px',
+          },
+        });
+        return;
+      }
+    }
+
+    if (!authCtx.isLoggedIn) {
+      if (!navigator.onLine) {
+        await sleep(2000);
+
+        toast.error(
+          'Failed to add requested item to cart, please try again later',
+          {
+            style: {
+              background: '#FCE2E2',
+              color: '#F05D5D',
+              maxWidth: '300px',
+            },
+          },
+        );
+        return;
+      }
+
+      await sleep(1000);
+
+      dispatch(
+        addItem({
+          productId: id,
+          name,
+          coverImageUrl,
+          originalPrice: originalPrice || null,
+          price,
+          quantity: cartQuantity,
+          productQuantity: quantity,
+          slug,
+        }),
+      );
+      setcartQuantity(1);
+      navigate('/checkout');
+    } else {
+      addToCartAuthHandler('isCheckingOut');
+    }
   };
 
   return (
     <section className="app-container pb-20">
-      <div className="my-10 flex items-center justify-between text-[13px] text-[#1F1F1F]">
+      <div className="flex items-center justify-between py-10 text-sm font-semibold text-black">
         <ul className="flex items-center space-x-1">
-          <li className="flex items-center font-normal">
+          <li className="flex items-center">
             <Link
               to="/"
               className="transition-all duration-200 hover:text-primary"
@@ -180,7 +313,7 @@ function ProductDetail({ product }) {
             </Link>
             <MdKeyboardArrowRight className="h-4 w-4" />
           </li>
-          <li className="flex items-center font-normal">
+          <li className="flex items-center">
             <Link
               to={`/product-category/${platform}/`}
               className="transition-all duration-200 hover:text-primary"
@@ -189,17 +322,17 @@ function ProductDetail({ product }) {
             </Link>
             <MdKeyboardArrowRight className="h-4 w-4" />
           </li>
-          <li className="flex items-center font-normal">
+          <li className="flex items-center">
             <Link
               to="/"
-              className="transition-all duration-200 hover:text-primary"
+              className="text-[15px] transition-all duration-200 hover:text-primary"
             >
               {categoryText}
             </Link>
             {genre && <MdKeyboardArrowRight className="h-4 w-4" />}
           </li>
           {genre && (
-            <li className="flex items-center font-normal">
+            <li className="flex items-center">
               <Link
                 to="/"
                 className="transition-all duration-200 hover:text-primary"
@@ -211,7 +344,7 @@ function ProductDetail({ product }) {
         </ul>
 
         <ul className="flex items-center space-x-4">
-          <li className="group flex items-center font-normal">
+          <li className="group flex items-center">
             <MdKeyboardArrowLeft className="h-4 w-4 group-hover:text-primary" />
             <Link
               to={
@@ -227,7 +360,7 @@ function ProductDetail({ product }) {
 
           <span className="inline-block">|</span>
 
-          <li className="group flex items-center font-normal">
+          <li className="group flex items-center">
             <Link
               to={
                 nextProductSlug
@@ -243,7 +376,7 @@ function ProductDetail({ product }) {
         </ul>
       </div>
       <div className="grid grid-cols-2 gap-8">
-        <div className="rounded-md border border-solid border-[#e7e2de] p-5">
+        <div className="rounded-[3px] border border-solid border-[#e1e3e4] bg-white p-5">
           <FancyBox
             options={{
               Carousel: {
@@ -279,79 +412,101 @@ function ProductDetail({ product }) {
           </FancyBox>
         </div>
 
-        <div className="rounded-md border border-solid border-[#e7e2de] p-7 text-[#1F1F1F]">
-          <div className="space-y-4 border-b border-solid border-[#e7e2de]">
-            <h2 className="font-heading text-[28px] font-medium leading-10">
+        <div className="rounded-[3px] border border-solid border-[#e1e3e4] bg-white p-7 text-black">
+          <div className="space-y-6 border-b border-solid border-[#e1e3e4]">
+            <h2 className="font-heading text-[28px] font-medium leading-10 text-body">
               {name}
             </h2>
 
             {originalPrice && (
-              <span className="inline-block rounded-3xl bg-primary px-3 py-1 text-xs font-medium text-white">
+              <span className="inline-block rounded-[3px] bg-primary px-3 py-1 text-xs font-semibold text-white">
                 Save {discountedValue}%
               </span>
             )}
 
-            <div className="pb-6 text-sm font-medium">
-              Brand:{' '}
-              <Link to="" className="ml-1 text-[15px] font-normal text-primary">
-                {brand}
-              </Link>
-            </div>
+            <Link
+              to=""
+              className="ml-1 block pb-4 text-sm font-semibold uppercase text-primary"
+            >
+              {brand}
+            </Link>
           </div>
           <div className="space-y-6 bg-fixed py-5">
-            <h4 className="flex items-center text-[15px] font-medium">
+            <h4 className="flex items-center text-[15px] font-bold text-body">
               Price:{' '}
-              <span className="ml-5 text-[23px] font-medium text-primary">
-                {formatCurrency(price)}
+              <span className="ml-5 text-[22px] font-semibold text-primary">
+                {formatCurrency(price, 2)}
               </span>
               {originalPrice && (
-                <span className="relative ml-5 inline-block text-[15px] font-normal">
-                  {formatCurrency(originalPrice)}
-                  <span className="absolute left-0 top-[45%] inline-block h-[1px] w-full bg-[#1F1F1F]"></span>
+                <span className="relative ml-5 inline-block text-[15px] font-semibold text-black">
+                  {formatCurrency(originalPrice, 2)}
+                  <span className="absolute left-0 top-[45%] inline-block h-[1px] w-full bg-black"></span>
                 </span>
               )}
             </h4>
 
             <div className="flex items-center">
-              <h4 className="mr-5 h-full text-[15px] font-medium">Quantity:</h4>
-              <div className="flex h-10 w-24 items-center rounded-3xl border border-solid border-[#e7e2de]">
-                <button
-                  className="h-full w-1/3 rounded-s-3xl border-r border-solid border-[#e7e2de] text-xl text-[#777] hover:bg-primary hover:text-white"
-                  onClick={decreaseQuantity}
-                >
-                  -
-                </button>
-                <span className="flex-1 text-center text-sm text-[#777]">
-                  {quantity}
-                </span>
-                <button
-                  className="h-full w-1/3 rounded-e-3xl border-l border-solid border-[#e7e2de] text-lg text-[#777] hover:bg-primary hover:text-white"
-                  onClick={() => setQuantity((prevQty) => prevQty + 1)}
-                >
-                  +
-                </button>
+              <h4 className="mr-5 h-full text-[15px] font-bold text-body">
+                Quantity:
+              </h4>
+              <div className="flex flex-col items-center gap-1">
+                <div className="flex h-10 w-28 items-center rounded-[3px] border border-solid border-[#e1e3e4]">
+                  <button
+                    className="h-full w-1/3 rounded-s-[3px] border-r border-solid border-[#e1e3e4] text-xl text-[#777] hover:bg-primary hover:text-white"
+                    onClick={decreaseQuantity}
+                  >
+                    -
+                  </button>
+                  <span className="flex-1 text-center text-sm text-[#777]">
+                    {!soldOut ? cartQuantity : quantity}
+                  </span>
+                  <button
+                    className="h-full w-1/3 rounded-e-[3px] border-l border-solid border-[#e1e3e4] text-lg text-[#777] hover:bg-primary hover:text-white"
+                    onClick={increaseQuantity}
+                  >
+                    +
+                  </button>
+                </div>
+                {errorQuantity && (
+                  <p className="text-[13px] text-[#D0021B]">
+                    {product.quantity === 0
+                      ? 'Out of stock'
+                      : `Only ${product.quantity} items left`}
+                  </p>
+                )}
               </div>
             </div>
             <div className="grid grid-cols-2 space-x-4 text-white">
-              <Button onClick={addToCartHandler} disabled={isLoading}>
-                {isLoading ? <SpinnerButton type="white" /> : 'Add to cart'}
+              <Button
+                onClick={addToCartHandler}
+                disabled={isLoading || soldOut}
+                additionalClass="h-10"
+                variation={!soldOut ? 'primary' : 'soldout'}
+              >
+                {isLoading && <SpinnerButton />}
+                {!isLoading && !soldOut && 'Add to cart'}
+                {soldOut && 'Sold out'}
               </Button>
 
-              <Button type="secondary">Buy now</Button>
+              {!soldOut && (
+                <Button variation="secondary" onClick={buyNowHandler}>
+                  Buy now
+                </Button>
+              )}
             </div>
           </div>
           <button className="flex h-10 items-center gap-2 text-[15px] text-[#13133] hover:opacity-80">
-            <FaRegHeart className="h-4 w-4" />
+            <FaRegHeart className="h-5 w-5" />
             Save for later
           </button>
         </div>
 
-        <div className="space-y-7 rounded-md border border-solid border-[#e7e2de] p-7 leading-7 text-[#1F1F1F]">
-          <h2 className="font- font-heading text-2xl font-medium">
+        <div className="space-y-7 rounded-[3px] border border-solid border-[#e1e3e4] bg-white p-7 leading-7 text-black">
+          <h2 className="font-heading text-2xl font-medium text-body">
             Description
           </h2>
 
-          <ul className="ml-5 space-y-4 text-[15px] font-normal">
+          <ul className="ml-5 space-y-4 text-base font-normal">
             <li className="relative before:absolute before:-left-4 before:top-[10px] before:h-[5px] before:w-[5px] before:rounded-full before:bg-[rgba(0,0,0,0.6)] before:content-['']">
               <span>
                 Precision Control offering players absolute control over all of
