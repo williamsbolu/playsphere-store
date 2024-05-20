@@ -39,7 +39,7 @@ function AppLayout() {
       }
 
       // if we have stored cart items in our storage and it is not empty
-      if (storedCartData && storedCartData.cart.products.length > 0) {
+      if (storedCartData && storedCartData?.cart?.products?.length > 0) {
         dispatch(replaceCart(storedCartData.cart));
       }
     } else {
