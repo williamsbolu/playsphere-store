@@ -31,6 +31,7 @@ function WishListItem({ item }) {
       originalPrice,
       price,
       quantity: unitQuantity,
+      size,
       coverImageUrl,
       discountedValue,
     },
@@ -81,6 +82,8 @@ function WishListItem({ item }) {
                 originalPrice: originalPrice || null,
                 price,
                 quantity: 1,
+                productQuantity: unitQuantity,
+                size,
                 slug,
               }),
             );
@@ -103,6 +106,8 @@ function WishListItem({ item }) {
                 originalPrice: originalPrice || null,
                 price,
                 quantity: 1,
+                productQuantity: unitQuantity,
+                size,
                 slug,
               }),
             );
@@ -141,6 +146,8 @@ function WishListItem({ item }) {
           originalPrice: originalPrice || null,
           price,
           quantity: 1,
+          productQuantity: unitQuantity,
+          size,
           slug,
         }),
       );

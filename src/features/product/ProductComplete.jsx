@@ -42,6 +42,7 @@ function ProductComplete({ product }) {
     price,
     originalPrice,
     quantity,
+    size,
     slug,
   } = product;
 
@@ -137,6 +138,7 @@ function ProductComplete({ product }) {
                 price,
                 quantity: 1,
                 productQuantity: quantity,
+                size,
                 slug,
               }),
             );
@@ -160,6 +162,7 @@ function ProductComplete({ product }) {
                 price,
                 quantity: 1,
                 productQuantity: quantity,
+                size,
                 slug,
               }),
             );
@@ -218,6 +221,7 @@ function ProductComplete({ product }) {
         price,
         quantity: 1,
         productQuantity: quantity,
+        size,
         slug,
       }),
     );

@@ -26,7 +26,6 @@ function Toggle({ id, children }) {
 
   function handleClick(e) {
     e.stopPropagation(); // stop the event propagation, so it doesn't bubble up to the 'StyledList container' and runs the "useOutsideClick" hook
-    console.log('Click');
 
     const rect = e.target.closest('button').getBoundingClientRect();
     // console.log(rect);

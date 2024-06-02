@@ -64,11 +64,11 @@ export async function exportLocalStoredCarts() {
   const storedLocalCarts = JSON.parse(localStorage.getItem('cart'));
   const storedToken = localStorage.getItem('auth-token');
 
-  if (!storedLocalCarts || storedLocalCarts.products.length === 0) {
+  if (!storedLocalCarts || storedLocalCarts.products?.length === 0) {
     return;
   }
 
-  const filteredStoredCarts = storedLocalCarts.products.map(function (cart) {
+  const filteredStoredCarts = storedLocalCarts.products?.map(function (cart) {
     return {
       product: cart.product._id,
       price: cart.price,

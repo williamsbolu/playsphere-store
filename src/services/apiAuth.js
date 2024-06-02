@@ -95,15 +95,3 @@ export async function changePassword(reqBody) {
 
   return res.data;
 }
-
-export async function createCheckout(data) {
-  const storedToken = localStorage.getItem('auth-token');
-
-  const res = await axios.get(`${PLAYSPHERE_API_ROUTE}/api/v1/order/checkout`, {
-    headers: {
-      Authorization: `Bearer ${storedToken}`,
-    },
-  });
-
-  return res.data;
-}

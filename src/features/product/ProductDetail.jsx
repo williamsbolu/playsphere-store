@@ -58,6 +58,7 @@ function ProductDetail({ product }) {
     prevProductSlug,
     nextProductSlug,
     quantity,
+    size,
     slug,
   } = product;
 
@@ -126,6 +127,7 @@ function ProductDetail({ product }) {
                 price,
                 quantity: cartQuantity,
                 productQuantity: quantity,
+                size,
                 slug,
               }),
             );
@@ -143,7 +145,6 @@ function ProductDetail({ product }) {
         { product: id, price },
         {
           onSuccess: (cart) => {
-            console.log(cart);
             dispatch(
               addItem({
                 cartId: cart.data.id || existingItem._id,
@@ -155,6 +156,7 @@ function ProductDetail({ product }) {
                 price,
                 quantity: cartQuantity,
                 productQuantity: quantity,
+                size,
                 slug,
               }),
             );
@@ -217,6 +219,7 @@ function ProductDetail({ product }) {
         price,
         quantity: cartQuantity,
         productQuantity: quantity,
+        size,
         slug,
       }),
     );
@@ -290,6 +293,7 @@ function ProductDetail({ product }) {
           price,
           quantity: cartQuantity,
           productQuantity: quantity,
+          size,
           slug,
         }),
       );

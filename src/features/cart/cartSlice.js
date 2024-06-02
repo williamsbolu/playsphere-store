@@ -32,6 +32,7 @@ const cartSlice = createSlice({
             name: newProduct.name,
             originalPrice: newProduct.originalPrice || null,
             quantity: newProduct.productQuantity,
+            size: newProduct.size,
             slug: newProduct.slug,
           },
           price: newProduct.price,

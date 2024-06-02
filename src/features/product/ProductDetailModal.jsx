@@ -85,6 +85,7 @@ function ProductDetailModal({ id }) {
                 price: product.price,
                 quantity,
                 productQuantity: product.quantity,
+                size: product.size,
                 slug: product.slug,
               }),
             );
@@ -111,6 +112,7 @@ function ProductDetailModal({ id }) {
                 price: product.price,
                 quantity,
                 productQuantity: product.quantity,
+                size: product.size,
                 slug: product.slug,
               }),
             );
@@ -171,6 +173,7 @@ function ProductDetailModal({ id }) {
         price: product.price,
         quantity,
         productQuantity: product.quantity,
+        size: product.size,
         slug: product.slug,
       }),
     );
@@ -245,6 +248,7 @@ function ProductDetailModal({ id }) {
           price: product.price,
           quantity,
           productQuantity: product.quantity,
+          size: product.size,
           slug: product.slug,
         }),
       );

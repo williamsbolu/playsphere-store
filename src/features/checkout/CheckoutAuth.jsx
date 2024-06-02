@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { useState } from 'react';
+import { useContext } from 'react';
 import toast from 'react-hot-toast';
 import { useUser } from '../authentication/useUser';
 import { useAddress } from '../user/address/useAddress';
@@ -11,12 +10,18 @@ import Button from '../../ui/Button';
 import ErrorPage from '../../ui/ErrorPage';
 import SpinnerButton from '../../ui/SpinnerButton';
 import SpinnerFull from '../../ui/SpinnerFull';
-import { PLAYSPHERE_API_ROUTE } from '../../utils/constants';
+import { createOrderInformation } from '../../utils/helpers';
 
-function CheckoutAuth({ cart }) {
+function CheckoutAuth({
+  cart,
+  onSelectOption,
+  selectedOption,
+  onHandlePaymentOnDelivery,
+  onHandleBankTransfer,
+  onHandlePaystack,
+  isCheckingOut,
+}) {
   const { user } = useUser();
-  const [selectedOption, setSelectedOption] = useState('');
-  const [isCheckingOut, setIsCheckingOut] = useState(false);
 
   const {
     isLoading: isLoadingAddress,
@@ -30,40 +35,39 @@ function CheckoutAuth({ cart }) {
 
   const deliveryAddress = addresses.find((address) => address.isDefault);
 
-  const handleOptionChange = (event) => {
-    setSelectedOption(event.target.value);
-  };
-
   const checkOutHandler = async () => {
     if (!deliveryAddress) {
       toast.error('Please select your shipping address');
       return;
     }
 
+    // Arrange the user order details for server use
+    const order = createOrderInformation(
+      cart,
+      deliveryAddress,
+      selectedOption,
+      user._id,
+    );
+
+    console.log(order);
+    console.log(user);
+
+    if (selectedOption === 'pay-on-delivery') {
+      onHandlePaymentOnDelivery(order);
+    }
+
     if (selectedOption === 'pay-with-card') {
-      setIsCheckingOut(true);
-      try {
-        const storedToken = localStorage.getItem('auth-token');
+      // the email here is needed for paystack checkout
+      onHandlePaystack(order, user?.email);
+    }
 
-        const res = await axios.get(
-          `${PLAYSPHERE_API_ROUTE}/api/v1/order/paystack?email=${user.email}&amount=${cart.totalAmount * 100}`,
-          {
-            headers: {
-              Authorization: `Bearer ${storedToken}`,
-            },
-          },
-        );
-
-        const paystackObj = res.data;
-        const url = paystackObj?.data?.authorization_url;
-
-        if (url) window.location.href = paystackObj.data.authorization_url;
-      } catch (error) {
-        console.log(error);
-      }
-      setIsCheckingOut(false);
+    if (selectedOption === 'direct-bank-transfer') {
+      onHandleBankTransfer(order);
     }
   };
+
+  const btnOrderText =
+    selectedOption === 'pay-with-card' ? 'Continue to Payment' : 'Place Order';
 
   return (
     <>
@@ -83,7 +87,7 @@ function CheckoutAuth({ cart }) {
 
           <CheckoutPaymentOptions
             selectedOption={selectedOption}
-            onHandleChange={handleOptionChange}
+            onHandleChange={(e) => onSelectOption(e.target.value)}
           />
 
           <Button
@@ -93,7 +97,7 @@ function CheckoutAuth({ cart }) {
             isCheckout={true}
             onClick={checkOutHandler}
           >
-            {isCheckingOut ? <SpinnerButton /> : 'Continue to Payment'}
+            {isCheckingOut ? <SpinnerButton /> : btnOrderText}
           </Button>
         </div>
       )}

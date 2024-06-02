@@ -51,7 +51,7 @@ function CheckoutPaymentOptions({ selectedOption, onHandleChange }) {
           <label htmlFor="card" className="form__radio-label">
             <span className="form__radio-button"></span>
             <div className="flex flex-col gap-2">
-              <span>Pay with card</span>
+              <span>Pay with card: Paystack</span>
 
               {selectedOption === 'pay-with-card' && (
                 <div className="grid grid-cols-2 gap-3">

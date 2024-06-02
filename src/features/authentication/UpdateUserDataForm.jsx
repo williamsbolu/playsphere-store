@@ -13,7 +13,7 @@ function UpdateUserDataForm() {
   const { errors } = formState;
 
   function onSubmit({ firstName, lastName }) {
-    console.log({ ...user, firstName, lastName });
+    // console.log({ ...user, firstName, lastName });
     updateUser(
       { firstName, lastName },
       {

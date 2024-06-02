@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { formatCurrency } from '../../utils/helpers';
 import { useAddress } from '../user/address/useAddress';
@@ -13,10 +13,8 @@ import { useUser } from '../authentication/useUser';
 import axios from 'axios';
 import { PLAYSPHERE_API_ROUTE } from '../../utils/constants';
 import SpinnerButton from '../../ui/SpinnerButton';
-import AuthContext from '../../auth-context';
 
 function CheckoutOverview() {
-  const authCtx = useContext(AuthContext);
   const [selectedOption, setSelectedOption] = useState();
   const [isCheckingOut, setIsCheckingOut] = useState();
   const cart = useSelector((state) => state.cart);

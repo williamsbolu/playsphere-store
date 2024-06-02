@@ -16,8 +16,6 @@ export const replaceUserCheckoutAddress = () => {
       return;
     }
 
-    console.log(storedAddress);
-
     dispatch(replaceAddress(storedAddress));
   };
 };

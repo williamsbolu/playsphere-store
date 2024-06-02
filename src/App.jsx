@@ -28,6 +28,9 @@ import Orders from './features/user/Orders';
 import Addresses from './features/user/address/Addresses';
 import ScrollToTop from './ScrollToTop';
 import SearchResults from './pages/SearchResults';
+import VerifyPayment from './ui/VerifyPayment';
+import OrderReceived from './pages/OrderReceived';
+import VerifyOrder from './pages/VerifyOrder';
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -41,6 +44,15 @@ function App() {
               <Route index element={<Home />} />
               <Route path="/search" element={<SearchResults />} />
               <Route path="/product/:slug" element={<Product />} />
+              <Route path="/verify/:reference" element={<VerifyPayment />} />
+              <Route
+                path="/checkout/verify/:orderId"
+                element={<VerifyOrder />}
+              />
+              <Route
+                path="/checkout/order-received/:orderId"
+                element={<OrderReceived />}
+              />
 
               <Route path="/product-category/deals" element={<HotDeals />} />
               <Route

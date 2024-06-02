@@ -1,6 +1,5 @@
 import Header from './Header';
 import Footer from './Footer';
-import Nav from './Nav';
 import { useContext, useEffect } from 'react';
 import AuthContext from '../auth-context';
 import { useDispatch, useSelector } from 'react-redux';
@@ -91,7 +90,6 @@ function AppLayout() {
   return (
     <>
       <Header />
-      <Nav />
       <main className="bg-[#F3F5F6]">{<Outlet />}</main>
       <Footer />
     </>

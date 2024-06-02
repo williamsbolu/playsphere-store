@@ -1,7 +1,10 @@
 import { formatCurrency } from '../../utils/helpers';
+import { calculateShipping } from '../../utils/helpers';
 import CheckoutCarts from './CheckoutCarts';
 
 function CheckoutDetails({ cart }) {
+  const shipping = calculateShipping(cart);
+
   return (
     <div className="self-start rounded-[3px] border border-solid border-[#e1e3e4] bg-white">
       <h3 className="border-b border-solid border-[#e1e3e4] px-4 py-2 font-heading text-lg font-medium text-body">
@@ -41,7 +44,7 @@ function CheckoutDetails({ cart }) {
 
           <p className="text-base">Shipping</p>
           <span className="justify-self-end text-primary">
-            {formatCurrency(3000, 2)}
+            {formatCurrency(shipping, 2)}
           </span>
         </div>
 
