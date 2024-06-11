@@ -383,6 +383,7 @@ function ProductDetail({ product }) {
         <div className="rounded-[3px] border border-solid border-[#e1e3e4] bg-white p-5">
           <FancyBox
             options={{
+              Thumbs: false,
               Carousel: {
                 infinite: false,
               },
